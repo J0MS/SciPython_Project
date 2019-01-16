@@ -1,0 +1,89 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+{% load socialaccount %}
+<html lang="en">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag   ---------->
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<body>
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+
+  <nav class="navbar navbar-light" style="background-color: #e3f2fd;" role="navigation">
+     <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Home</a>
+     </div>
+     <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+           <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+           <li class="dropdown">
+              <a href="http://www.jquery2dotnet.com" class="dropdown-toggle" data-toggle="dropdown">Sign in <b class="caret"></b></a>
+              <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                 <li>
+                    <div class="row">
+                       <div class="col-md-12">
+                          <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                             <div class="form-group">
+                                <label class="sr-only" for="idUser">Username</label>
+                                <input type="text" class="form-control" id="idUser" placeholder="Email address" required>
+                             </div>
+                             <div class="form-group">
+                                <label class="sr-only" for="passwordInput">Password</label>
+                                <input type="password" class="form-control" id="passwordInput" placeholder="Password" required>
+                             </div>
+                             <div class="checkbox">
+                                <label>
+                                <input type="checkbox"> Remember me
+                                </label>
+                             </div>
+                             <div class="form-group">
+                               <form method="post">
+                                 {% csrf_token %}
+                                 {{ form.as_p }}
+                                 <a class="button secondaryAction" href="/accounts/password/reset/">Forgot Password?</a>
+                                 <button type="submit">Login</button>
+                               </form>
+                               <!------ <button type="submit" class="btn btn-success btn-block">Sign77 in</button> ---------->
+
+                             </div>
+                          </form>
+                       </div>
+                    </div>
+                 </li>
+                 <li class="divider"></li>
+                 <li>
+                    <input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google">
+                    <input class="btn btn-primary btn-block" type="button" id="sign-in-twitter" value="Sign In with Twitter">
+                 </li>
+              </ul>
+           </li>
+        </ul>
+     </div>
+  </nav>
+
+
+{% if user.is_authenticated %}
+  <p>Welcome {{ user.username }} !!!</p>
+  <p><a href="{% url 'account_logout' %}">Log out</a>
+{% else %}
+  <!------ <p><a href="{% url 'account_signup' %}">Sign Up</a></p> ---------->
+  <p><a href="{% url 'account_signup' %}">Sign Up</a></p>
+  <p><a href="{% url 'account_login' %}">Log In </a></p>
+  <p><a href="{% provider_login_url 'google' %}">Log In with Gmail</a></p>
+{% endif %}
+
+
+</body>
+</html>
